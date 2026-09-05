@@ -1,7 +1,6 @@
 using System;
 using Dalamud.Game.Command;
 using Dalamud.Interface.Windowing;
-using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using MaskOfKefka.Output;
@@ -13,9 +12,9 @@ public sealed class Plugin : IDalamudPlugin
 {
     private const string CommandName = "/kefka";
 
-    [PluginService] internal static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
-    [PluginService] internal static ICommandManager CommandManager { get; private set; } = null!;
-    [PluginService] internal static IPluginLog Log { get; private set; } = null!;
+    internal static IDalamudPluginInterface PluginInterface => Service.PluginInterface;
+    internal static ICommandManager CommandManager => Service.CommandManager;
+    internal static IPluginLog Log => Service.Log;
 
     public Configuration Config { get; }
 
@@ -36,8 +35,9 @@ public sealed class Plugin : IDalamudPlugin
     private OutputSession? session;
     private int consecutiveRenderErrors;
 
-    public Plugin()
+    public Plugin(IDalamudPluginInterface pluginInterface)
     {
+        pluginInterface.Create<Service>();
         Config = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
 
         configWindow = new ConfigWindow(this);
@@ -45,7 +45,7 @@ public sealed class Plugin : IDalamudPlugin
 
         CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
         {
-            HelpMessage = "Opens Mask of Kefka. Subcommands: on, off, ui.",
+            HelpMessage = "開啟 Mask of Kefka 設定。子指令：on、off、ui。",
         });
 
         // The output must keep updating even while Dalamud hides its UI
@@ -115,7 +115,7 @@ public sealed class Plugin : IDalamudPlugin
             }
             catch (Exception e)
             {
-                Log.Error(e, "Failed to open the output window.");
+                Log.Error(e, "無法開啟輸出視窗。");
                 OutputRequested = false;
                 return;
             }
@@ -139,7 +139,7 @@ public sealed class Plugin : IDalamudPlugin
         {
             if (++consecutiveRenderErrors >= 10)
             {
-                Log.Error(e, "Too many consecutive errors rendering the output; shutting it down.");
+                Log.Error(e, "輸出畫面連續發生過多錯誤，已將輸出關閉。");
                 OutputRequested = false;
             }
         }

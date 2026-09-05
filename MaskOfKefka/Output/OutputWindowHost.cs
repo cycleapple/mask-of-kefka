@@ -155,7 +155,7 @@ internal sealed unsafe class OutputWindowHost : IDisposable
             var hInstance = (HINSTANCE)(void*)GetModuleHandleW(null);
 
             // A registration may have survived a previous plugin reload; removal failing is fine.
-            _ = UnregisterClassW(clsName, hInstance);
+            _ = UnregisterClassW((ushort*)clsName, hInstance);
 
             var wc = new WNDCLASSEXW
             {
@@ -164,7 +164,7 @@ internal sealed unsafe class OutputWindowHost : IDisposable
                 lpfnWndProc = &WndProc,
                 hInstance = hInstance,
                 hCursor = LoadCursorW(HINSTANCE.NULL, IDC.IDC_ARROW),
-                lpszClassName = clsName,
+                lpszClassName = (ushort*)clsName,
             };
             if (RegisterClassExW(&wc) == 0)
                 return;
@@ -177,8 +177,8 @@ internal sealed unsafe class OutputWindowHost : IDisposable
 
                 var window = CreateWindowExW(
                     0,
-                    clsName,
-                    title,
+                    (ushort*)clsName,
+                    (ushort*)title,
                     style,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
@@ -215,7 +215,7 @@ internal sealed unsafe class OutputWindowHost : IDisposable
             }
             finally
             {
-                _ = UnregisterClassW(clsName, hInstance);
+                _ = UnregisterClassW((ushort*)clsName, hInstance);
             }
         }
     }

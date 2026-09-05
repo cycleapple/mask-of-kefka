@@ -1,0 +1,44 @@
+name: Build API 13
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - api13-tw
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Download pinned TC-compatible Dalamud API 13
+        shell: pwsh
+        run: |
+          $hooksPath = Join-Path $env:APPDATA 'XIVLauncher\addon\Hooks\dev'
+          New-Item -ItemType Directory -Force -Path $hooksPath | Out-Null
+          Invoke-WebRequest -Uri 'https://github.com/ffxiv-tc-port/DalamudPluginsTC/releases/download/dalamud-pin-v13.0.0.16/dalamud-api13-net9.zip' -OutFile dalamud.zip
+          Expand-Archive -Path dalamud.zip -DestinationPath $hooksPath -Force
+
+      - name: Restore
+        run: dotnet restore ./MaskOfKefka/MaskOfKefka.csproj --force-evaluate
+
+      - name: Build Debug
+        run: dotnet build ./MaskOfKefka/MaskOfKefka.csproj --configuration Debug --no-restore
+
+      - name: Build Release
+        run: dotnet build ./MaskOfKefka/MaskOfKefka.csproj --configuration Release --no-restore
+
+      - name: Upload Release package
+        uses: actions/upload-artifact@v4
+        with:
+          name: MaskOfKefka-API13
+          path: ./MaskOfKefka/bin/Release/MaskOfKefka/latest.zip

@@ -20,7 +20,7 @@ This plugin was designed to break as little as possible, but FFXIV plus Dalamud 
 
 | Dependency | Maintained by | Where it lives | Breaks when |
 |---|---|---|---|
-| `Dalamud.NET.Sdk/15.0.0` | goatcorp | `MaskOfKefka/MaskOfKefka.csproj` (line 1) | Dalamud bumps its major version (new API level) |
+| `Dalamud.NET.Sdk/13.0.0` | goatcorp | `MaskOfKefka/MaskOfKefka.csproj` (line 1) | The target TC Dalamud API changes |
 | Dalamud API (`UiBuilder`, `Window`, `IPluginLog`, ImGui bindings) | goatcorp | `Plugin.cs`, `Windows/ConfigWindow.cs` | Breaking changes in a major Dalamud release |
 | `Device.Instance()`, `D3D11Forwarder`, `D3D11DeviceContext`, `SwapChain` | FFXIVClientStructs (community) | `Capture/GameSources.cs`, `Output/OutputSession.cs` | Rarely; the community updates the offsets for us |
 | `SwapChain.BackBuffer`, `.Width`, `.Height` | FFXIVClientStructs | `Capture/GameSources.cs`, `Output/OutputSession.cs` | Same |
@@ -35,14 +35,14 @@ Note what is **not** on this list: memory signatures ("sigs"). The plugin has no
 
 **Symptom**: Dalamud disables the plugin for an outdated API level, or `dotnet build` fails with API errors.
 
-Since Dalamud v9, API level = major version (Dalamud 16 means API 16). For each major:
+This fork deliberately targets TC Dalamud API 13 and .NET 9. Before changing that target:
 
 1. Find the new version: <https://dalamud.dev/versions/> (or check the SDK version in [SamplePlugin](https://github.com/goatcorp/SamplePlugin/blob/master/SamplePlugin/SamplePlugin.csproj)).
-2. In `MaskOfKefka.csproj`, update the first line:
+2. In `MaskOfKefka.csproj`, update the first line (only when intentionally moving away from API 13):
    ```xml
    <Project Sdk="Dalamud.NET.Sdk/16.0.0">
    ```
-3. Check whether the .NET version changed (the "What's New in vXX" page on dalamud.dev always says; v14/v15 use .NET 10). If it changed: `winget install Microsoft.DotNet.SDK.XX`.
+3. Check whether the .NET version changed (API 13 uses .NET 9). If it changed: `winget install Microsoft.DotNet.SDK.XX`.
 4. `dotnet build -c Release` and fix errors using the **breaking changes** listed at `https://dalamud.dev/versions/vXX/`.
 
 Dalamud surfaces we use (deliberately few):

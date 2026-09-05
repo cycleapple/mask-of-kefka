@@ -1,8 +1,8 @@
-<Project Sdk="Dalamud.NET.Sdk/15.0.0">
+<Project Sdk="Dalamud.NET.Sdk/13.0.0">
   <PropertyGroup>
-    <Version>0.2.0.0</Version>
+    <Version>0.2.0.1</Version>
     <Description>Mirrors the game into a clean window, free of Dalamud overlays, for OBS capture.</Description>
-    <PackageProjectUrl>https://github.com/doomzao/mask-of-kefka</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/cycleapple/mask-of-kefka</PackageProjectUrl>
     <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>

@@ -4,6 +4,8 @@
 
 # Mask of Kefka
 
+> 此分支為繁體中文 Dalamud API 13／.NET 9 移植版，介面已翻譯為 zh-TW。原始專案由 [doomzao](https://github.com/doomzao/mask-of-kefka) 維護。
+
 A [Dalamud](https://dalamud.dev) plugin for FFXIV that creates a **second window with a clean image of the game**: no ImGui, no plugin overlays, no Dalamud at all. Capture that window in OBS and stream with all your quality-of-life plugins without showing them. In short: a **streamer mode** (stream mode) for FFXIV.
 
 Inspired by [MaskedCarnivale (ProjectMimer)](https://github.com/ProjectMimer/MaskedCarnivale), rewritten from scratch for current Dalamud.
@@ -66,7 +68,7 @@ Requirements: [XIVLauncher](https://goatcorp.github.io/) with Dalamud enabled.
 2. Under **Custom Plugin Repositories**, paste the URL below into an empty box:
 
    ```
-   https://raw.githubusercontent.com/doomzao/plugins/main/repo.json
+   https://raw.githubusercontent.com/cycleapple/DalamudPlugins-TW-API13-Extended/main/repo.json
    ```
 
 3. Click the **+** button on the right, then the **save** button at the bottom right.
@@ -76,7 +78,7 @@ That repository URL covers all my plugins: add it once and future plugins appear
 
 ### Building from source
 
-Requires the [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0).
+Requires the [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) and the pinned TC-compatible Dalamud API 13 runtime.
 
 ```powershell
 dotnet build -c Release

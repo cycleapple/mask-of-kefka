@@ -1,11 +1,12 @@
 {
   "Name": "Mask of Kefka",
-  "Author": "doomzao",
-  "Punchline": "Streamer mode: stream the game without showing Dalamud overlays.",
-  "Description": "Streamer mode / stream mode for FFXIV. Creates a second window with a clean image of the game (no ImGui/Dalamud) for capture in OBS. Optionally shows the scene without the game UI.",
+  "Author": "doomzao；API 13 移植：cycleapple",
+  "Punchline": "直播模式：不讓直播畫面顯示 Dalamud 覆蓋介面。",
+  "Description": "為 FFXIV 建立不含 ImGui／Dalamud 覆蓋介面的獨立輸出視窗，供 OBS 擷取；也可選擇隱藏遊戲 UI，只顯示場景。",
   "InternalName": "MaskOfKefka",
+  "DalamudApiLevel": 13,
   "ApplicableVersion": "any",
-  "Tags": [ "streamer mode", "stream mode", "streamer", "streaming", "stream", "obs", "overlay", "hide", "utility" ],
-  "RepoUrl": "https://github.com/doomzao/mask-of-kefka",
-  "IconUrl": "https://raw.githubusercontent.com/doomzao/mask-of-kefka/main/images/icon.png"
+  "Tags": [ "直播模式", "實況", "OBS", "隱藏覆蓋介面", "工具", "streamer mode", "streaming" ],
+  "RepoUrl": "https://github.com/cycleapple/mask-of-kefka",
+  "IconUrl": "https://raw.githubusercontent.com/cycleapple/mask-of-kefka/api13-tw/images/icon.png"
 }
