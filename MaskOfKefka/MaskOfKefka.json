@@ -4,7 +4,7 @@
   "Punchline": "直播模式：不讓直播畫面顯示 Dalamud 覆蓋介面。",
   "Description": "為 FFXIV 建立不含 ImGui／Dalamud 覆蓋介面的獨立輸出視窗，供 OBS 擷取；也可選擇隱藏遊戲 UI，只顯示場景。",
   "InternalName": "MaskOfKefka",
-  "DalamudApiLevel": 13,
+  "DalamudApiLevel": 14,
   "ApplicableVersion": "any",
   "Tags": [ "直播模式", "實況", "OBS", "隱藏覆蓋介面", "工具", "streamer mode", "streaming" ],
   "RepoUrl": "https://github.com/cycleapple/mask-of-kefka",
